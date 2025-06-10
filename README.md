@@ -57,3 +57,9 @@ these are found in:
 Functions from the above files are used in inference/predict_intrepret.py .
 
 So for to get interpretations for a given sentence predict_intrepret.py can be used for guidance.
+
+
+repos to clone:
+conllx_df https://github.com/CAMeL-Lab/conllx_df/tree/main
+camel parser https://www.google.com/search?client=safari&rls=en&q=camel_parser&ie=UTF-8&oe=UTF-8
+CAMeLBERT_morphosyntactic_tagger https://github.com/CAMeL-Lab/CAMeLBERT_morphosyntactic_tagger
