@@ -16,11 +16,11 @@ from vocab import extract_vocab_feats
 # 3. Step-by-step feature extraction
 
 # 3.1 Disambiguation features
-# disambig_feats = extract_disambig_feats(df_train)
+disambig_feats = extract_disambig_feats(df_train)
 
-disambig_feats = pd.read_csv('../data/mini_disambig_feats.csv')
+# disambig_feats = pd.read_csv('../data/mini_disambig_feats.csv')
 # TO DO add word count unique from df_train 
-# disambig_feats['word count unique'] = df_train['word count unique']
+disambig_feats['word count unique'] = df_train['word count unique']
 
 # disambig_feats.to_csv('../data/mini_disambig_feats.csv')
 # 3.2 data batching and Tree parsing
@@ -50,7 +50,7 @@ enriched_vocab = enrich_with_samer_and_barec(
     barec_path="../data/BAREC-Lexicon-updated.csv"
 )
 
-enriched_vocab.to_csv('../data/mini_enriched.csv')
+enriched_vocab.to_csv('../data/enriched.csv')
 
 # enriched_vocab = pd.read_csv('enriched.csv')
 # 3.5 Vocab features (uses vocab dictionaries)
