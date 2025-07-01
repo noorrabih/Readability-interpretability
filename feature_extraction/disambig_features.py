@@ -36,7 +36,7 @@ vowels = ['a', 'e', 'i', 'o', 'u', 'aa', 'ee', 'ii', 'oo', 'uu']
 arabic_vowels = ['ي', 'و', 'ا', 'ى', 'ؤ', 'ئ', 'إ', 'أ', 'آ', 'ة']
 AR_LETTERS_PATTERN = "[" + "".join(AR_LETTERS_CHARSET) + "]"
 
-db = MorphologyDB("../CAMeLBERT_morphosyntactic_tagger/calima-msa-s31.db", "a")
+db = MorphologyDB("/home/nour.rabih/Readability-interpretability/CAMeLBERT_morphosyntactic_tagger/calima-msa-s31.db", "a")
 
 # Initialize the analyzer
 analyzer = Analyzer(db, 'NONE', cache_size=100000)
@@ -410,13 +410,13 @@ def analyze_sentence(sentence_analysis, raw_sentence):
 def extract_features_from_row(row):
     """Extract features from a single row of the DataFrame.
     Args:
-        row (pd.Series): A single row of the DataFrame containing 'Clean_Sentnece' and 'ID'.
+        row (pd.Series): A single row of the DataFrame containing 'Sentence' and 'ID'.
     Returns:
         features (dict): A dictionary containing extracted features for the row.
         This includes both sentence-level and aggregated word-level features.
     """
 
-    sentence = row['Clean_Sentnece']  # Replace 'Text' with the correct column name
+    sentence = row['Sentence']  # Replace 'Text' with the correct column name
     # Perform sentence-level analysis
     if len(sentence.split(" ")) == 1:
         sentence = '"' + sentence + '"'

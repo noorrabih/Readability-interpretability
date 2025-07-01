@@ -143,7 +143,7 @@ from camel_tools.morphology.database import MorphologyDB
 from camel_tools.morphology.analyzer import Analyzer
 
 # Initialize BERT + Analyzer (only once)
-db = MorphologyDB("../CAMeLBERT_morphosyntactic_tagger/calima-msa-s31.db", "a")
+db = MorphologyDB("/home/nour.rabih/Readability-interpretability/CAMeLBERT_morphosyntactic_tagger/calima-msa-s31.db", "a")
 analyzer = Analyzer(db, 'NONE', cache_size=100000)
 bert = BERTUnfactoredDisambiguator.pretrained(model_name='msa', pretrained_cache=False)
 bert._analyzer = analyzer  
@@ -167,7 +167,7 @@ def build_vocab_dicts(df, is_disambiguated=False):
     lemma_pos_counts = defaultdict(lambda: defaultdict(int))
 
     for _, row in df.iterrows():
-        sentence = row['Clean_Sentnece']
+        sentence = row['Sentence']
         level = row['RL_num_19']
         if is_disambiguated:
             lemma_pos_pairs = ast.literal_eval(row['disam']) if isinstance(row['disam'], str) else row['disam']
@@ -255,23 +255,23 @@ def enrich_with_samer_and_barec(df_counts, samer_path, barec_path):
 
     return samer_vocab
 
-# Optional CLI usage
-if __name__ == "__main__":
-    df = pd.read_csv("../../thesis_data/1M_features/All_data_1M_morph_clean.csv")[:200]
-    # df = df[df['Split'] == 'Train'][:199]
-    # df = df.rename(columns={"Clean_Sentnece": "Clean_Sentence"})
+# # Optional CLI usage
+# if __name__ == "__main__":
+#     df = pd.read_csv("../../thesis_data/1M_features/All_data_1M_morph_clean.csv")[:200]
+#     # df = df[df['Split'] == 'Train'][:199]
+#     # df = df.rename(columns={"Clean_Sentnece": "Clean_Sentence"})
 
-    vocab_df = build_vocab_dicts(df)
-    vocab_df.to_csv("vocab_counts.csv", index=False)
+#     vocab_df = build_vocab_dicts(df)
+#     vocab_df.to_csv("vocab_counts.csv", index=False)
 
-    enriched_vocab = enrich_with_samer_and_barec(
-        vocab_df,
-        samer_path="/Users/noor/Desktop/Thesis/samer-readability-lexicon/SAMER-Readability-Lexicon.tsv",
-        barec_path="/Users/noor/Desktop/Thesis/Thesis/thesis_data/s31/BAREC-Lexicon-updated.csv"
-    )
+#     enriched_vocab = enrich_with_samer_and_barec(
+#         vocab_df,
+#         samer_path="/Users/noor/Desktop/Thesis/samer-readability-lexicon/SAMER-Readability-Lexicon.tsv",
+#         barec_path="/Users/noor/Desktop/Thesis/Thesis/thesis_data/s31/BAREC-Lexicon-updated.csv"
+#     )
 
-    enriched_vocab.to_csv("samerMSA_barec_vocab.csv", index=False)
-    print("✅ vocab dict + samer + barec ready.")
+#     enriched_vocab.to_csv("samerMSA_barec_vocab.csv", index=False)
+#     print("✅ vocab dict + samer + barec ready.")
 
 
 

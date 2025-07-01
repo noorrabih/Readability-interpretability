@@ -39,7 +39,7 @@ def analyze_features_vs_readability(
     rl_barec_counts = {}
 
     for index, row in data_sorted.iterrows():
-        sentence = row['Clean_Sentnece']
+        sentence = row['Sentence']
         features = row[columns]
         rl_num = row['RL_num_19']
         ID = row['ID']

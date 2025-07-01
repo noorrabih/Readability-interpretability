@@ -11,7 +11,7 @@ Key Features:
 """
 import sys
 import os
-sys.path.append(os.path.abspath(".."))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import glob
 import pandas as pd
@@ -293,7 +293,6 @@ def process_conllx_directory(conllx_directory, output_path):
     # "1M_features/parsed_batches_100/*.conllx"
     # Get all .conllx files in the directory
     conllx_files = glob.glob(f"{conllx_directory}/*.conllx" )
-    print(conllx_files)
     # Process each file
     for conllx_file in conllx_files:
         print(conllx_file)
@@ -305,7 +304,7 @@ def process_conllx_directory(conllx_directory, output_path):
 model_path = Path("camel_parser/models")
 model_name = "CAMeLBERT-CATiB-biaffine.model"
 arclean = CharMapper.builtin_mapper("arclean")
-clitic_feats_df = pd.read_csv('../camel_parser/data/clitic_feats.csv').astype(str).astype(object)
+clitic_feats_df = pd.read_csv('/home/nour.rabih/Readability-interpretability/camel_parser/data/clitic_feats.csv').astype(str).astype(object)
 tagset = get_tagset("catib")
 disambiguator = get_disambiguator("bert", "calima-msa-s31")
 

@@ -17,7 +17,8 @@ Folders:
 """
 import sys
 import os
-sys.path.append(os.path.abspath(".."))
+# sys.path.append(os.path.abspath(".."))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import os
 import pandas as pd
@@ -53,7 +54,7 @@ def batch_data(data_df, batch_output_dir):
     i = 0
     # Splitting the data into batches
     for batch_number, start_idx in enumerate(range(0, len(data_df), batch_size), start=1):
-        batch = data_df.iloc[start_idx:start_idx + batch_size][["ID", "Clean_Sentnece"]]
+        batch = data_df.iloc[start_idx:start_idx + batch_size][["ID", "Sentence"]]
         batch_file_path = os.path.join(batch_output_dir, f"batch_{batch_number}.csv")
         batch.to_csv(batch_file_path, index=False)
 
@@ -65,7 +66,7 @@ def batch_data(data_df, batch_output_dir):
 model_path = Path("camel_parser/models")
 parse_model = "catib"
 arclean = CharMapper.builtin_mapper("arclean")
-clitic_feats_df = read_csv('../camel_parser/data/clitic_feats.csv')
+clitic_feats_df = read_csv('/home/nour.rabih/Readability-interpretability/camel_parser/data/clitic_feats.csv')
 clitic_feats_df = clitic_feats_df.astype(str).astype(object)
 model_name = "CAMeLBERT-CATiB-biaffine.model"
 tagset = get_tagset(parse_model)
@@ -97,11 +98,11 @@ def parse_data(input_folder, output_folder):
                 batch_df = pd.read_csv(batch_path)
 
                 # Ensure it has 'id' and 'sentence' columns
-                if 'ID' not in batch_df.columns or 'Clean_Sentnece' not in batch_df.columns:
-                    raise ValueError(f"CSV {batch_file} must contain 'ID' and 'Clean_Sentnece' columns.")
+                if 'ID' not in batch_df.columns or 'Sentence' not in batch_df.columns:
+                    raise ValueError(f"CSV {batch_file} must contain 'ID' and 'Sentence' columns.")
 
                 # Extract sentences and IDs
-                sentences = batch_df['Clean_Sentnece'].tolist()
+                sentences = batch_df['Sentence'].tolist()
                 sentence_ids = batch_df['ID'].tolist()
 
                 # Pass sentences and parameters to TextParams
